@@ -53,8 +53,12 @@ public class EchoUcaseServerTCP
 
                 String outText = receivedText.toUpperCase();
                 // Write the converted uppercase string to the connection socket
-                out.println(outText);
-                System.out.println("I (Server) [" + connectSocket.getLocalAddress().getHostAddress() + ":" + portNumber + "] > " + outText);
+
+                //legg til kode her?
+                String mail = findMail(outText);
+
+                out.println(mail);
+                System.out.println("Found mail: " + mail);
             }
 
             System.out.println("I am done, Bye!");
@@ -65,5 +69,15 @@ public class EchoUcaseServerTCP
             System.out.println(e.getMessage());
         }
 
+    }
+
+    public static String findMail(String url){
+
+        String regEx = "^([a-zA-Z0-9_\\-\\.]+)@([a-zA-Z0-9_\\-\\.]+)\\.([a-zA-Z]{2,5})$";
+        String mail = "";
+        //gå til outText og søk etter mail med regEx
+
+
+        return mail;
     }
 }
