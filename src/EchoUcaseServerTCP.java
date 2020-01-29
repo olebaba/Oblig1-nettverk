@@ -9,7 +9,7 @@ import java.io.*;
 public class EchoUcaseServerTCP
 {
     public static void main(String[] args) throws IOException
-    {
+    /*{
         int portNumber = 5555; // Default port to use
 
         if (args.length > 0)
@@ -67,16 +67,30 @@ public class EchoUcaseServerTCP
             System.out.println("Exception caught when trying to listen on port "
                     + portNumber + " or listening for a connection");
             System.out.println(e.getMessage());
-        }
-
+        }*/
+    {
+        findMail("https://student.oslomet.no/om-e-post");
     }
 
-    public static String findMail(String url){
+    public static String findMail(String url) throws IOException {
 
         String regEx = "^([a-zA-Z0-9_\\-\\.]+)@([a-zA-Z0-9_\\-\\.]+)\\.([a-zA-Z]{2,5})$";
         String mail = "";
         //gå til outText og søk etter mail med regEx
 
+        var webpageUrl = new URL(url);
+        try(var br = new BufferedReader(new InputStreamReader(webpageUrl.openStream()))){
+            String line;
+
+            var sb = new StringBuilder();
+
+            while ((line = br.readLine()) != null){
+                sb.append(line);
+                sb.append(System.lineSeparator());
+            }
+
+            //System.out.println(sb);
+        }
 
         return mail;
     }
