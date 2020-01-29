@@ -84,14 +84,21 @@ public class EchoUcaseServerTCP
 
             var sb = new StringBuilder();
 
-            while ((line = br.readLine()) != null){
-                sb.append(line);
-                sb.append(System.lineSeparator());
+            while ((line = br.readLine()) != null) {
+                String[] words = line.split(" ");
+                for(String w: words){
+                    if(w.contains(regEx)){
+                        sb.append(line);
+                        sb.append(System.lineSeparator());
+                    }
+                }
             }
 
-            //System.out.println(sb);
-        }
+            mail = sb.toString();
 
+            System.out.println(mail);
+
+        }
         return mail;
     }
 }
