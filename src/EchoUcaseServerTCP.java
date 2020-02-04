@@ -50,14 +50,20 @@ public class EchoUcaseServerTCP
             while ((receivedText = in.readLine()) != null) {
                 System.out.println("Client [" + clientAddr.getHostAddress() + ":" + clientPort + "] > " + receivedText);
 
-                String outText = receivedText.toUpperCase();
-                // Write the converted uppercase string to the connection socket
+                String mail = "";
 
-                //legg til kode her?
-                String mail = findMail(outText);
+                //sjekker om url finnes
+                if(isWebsite(receivedText)){
+                    mail = findMail(receivedText);
+                }else {
+                    mail = "No such website";
+                }
 
-                out.println(mail);
-                System.out.println("Found mail: " + mail);
+                if(mail.equals("No such website")) out.println("No such website");
+                else {
+                    out.println("Found mail(s): " + mail);
+                    System.out.println("Found mail(s): " + mail);
+                }
             }
 
             System.out.println("I am done, Bye!");
@@ -67,17 +73,29 @@ public class EchoUcaseServerTCP
             System.out.println(e.getMessage());
         }
     }
+    /*{
+        findMail("https://www.elkjop.no/om-oss/Kontakt-oss");
+    }*/
+
+    public static boolean isWebsite(String url) throws IOException {
+        try {
+            InputStream eee = new URL(url).openStream();
+            return true;
+        }catch (IOException e){
+            return false;
+        }
+    }
 
     public static String findMail(String url) throws IOException {
 
-        String regEx = "([a-zA-Z0-9_\\-\\.]+)@([a-zA-Z0-9_\\-\\.]+)\\.([a-zA-Z]{2,5})";
+        String regEx = "([a-zA-Z0-9_\\-\\.]+)@([a-zA-Z0-9_\\-\\.]+)\\.([a-zA-Z]{2,5})";//mail
         String test = "ssh s123456@oslomet.no.</p>";
         ArrayList<String> mails = new ArrayList<String>();
-        String mail = "";
-        //gå til outText og søk etter mail med regEx
+        String outText = "";
 
         var webpageUrl = new URL(url);
-        try(var br = new BufferedReader(new InputStreamReader(webpageUrl.openStream()))){
+
+        try (var br = new BufferedReader(new InputStreamReader(webpageUrl.openStream()))) {
             String line;
 
             var sb = new StringBuilder();
@@ -85,20 +103,24 @@ public class EchoUcaseServerTCP
 
             while ((line = br.readLine()) != null) {
                 String[] words = line.split(" ");
-                for(String w: words){
+                for (String w : words) {
                     Pattern p = Pattern.compile(regEx);
                     Matcher m = p.matcher(w);
-                    if(m.find()) sb.append(m.group());
-                    }
+                    if (m.find()) sb.append(m.group()).append(", ");
+                }
             }
 
 
-            System.out.println(sb);
-            mail = sb.toString();
+            //System.out.println(sb);
+            if (sb.toString().equals("")) outText = "No mails found";
+            if (!sb.toString().isEmpty()) outText = sb.toString();
 
-        }catch (Exception e){
-            System.out.println(e);
+
+        } catch (ProtocolException e) {
+
+            outText = e.toString();
         }
-        return mail;
+
+        return outText;
     }
 }
