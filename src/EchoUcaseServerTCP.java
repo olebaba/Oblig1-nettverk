@@ -61,7 +61,7 @@ public class EchoUcaseServerTCP
 
                 if(mail.equals("No such website")) out.println("No such website");
                 else {
-                    out.println("Found mail(s): " + mail);
+                    out.println("Found mail(s): " + mail); //blir sendt til client
                     System.out.println("Found mail(s): " + mail);
                 }
             }
@@ -78,7 +78,7 @@ public class EchoUcaseServerTCP
     }*/
 
     public static boolean isWebsite(String url) throws IOException {
-        try {
+        try { //prøver å lage imputstream av url-en
             InputStream eee = new URL(url).openStream();
             return true;
         }catch (IOException e){
@@ -88,9 +88,8 @@ public class EchoUcaseServerTCP
 
     public static String findMail(String url) throws IOException {
 
-        String regEx = "([a-zA-Z0-9_\\-\\.]+)@([a-zA-Z0-9_\\-\\.]+)\\.([a-zA-Z]{2,5})";//mail
-        String test = "ssh s123456@oslomet.no.</p>";
-        ArrayList<String> mails = new ArrayList<String>();
+        String regEx = "([a-zA-Z0-9_\\-\\.]+)@([a-zA-Z0-9_\\-\\.]+)\\.([a-zA-Z]{2,5})";//mail regex
+        //String test = "ssh s123456@oslomet.no.</p>";
         String outText = "";
 
         var webpageUrl = new URL(url);
@@ -110,15 +109,12 @@ public class EchoUcaseServerTCP
                 }
             }
 
-
-            //System.out.println(sb);
             if (sb.toString().equals("")) outText = "No mails found";
             if (!sb.toString().isEmpty()) outText = sb.toString();
 
 
         } catch (ProtocolException e) {
-
-            outText = e.toString();
+            System.out.println(e.toString());
         }
 
         return outText;
