@@ -12,7 +12,7 @@ import java.util.regex.Pattern;
 
 public class EchoUcaseServerTCP
 {
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException /*{
         int portNumber = 5555; // Default port to use
 
         if (args.length > 0) {
@@ -72,10 +72,10 @@ public class EchoUcaseServerTCP
                     + portNumber + " or listening for a connection");
             System.out.println(e.getMessage());
         }
-    }
-    /*{
-        findMail("https://www.elkjop.no/om-oss/Kontakt-oss");
     }*/
+    {
+        System.out.println(findMail("https://www.scandichotels.no/kundeservice"));
+    }
 
     public static boolean isWebsite(String url) throws IOException {
         try {
@@ -89,8 +89,8 @@ public class EchoUcaseServerTCP
     public static String findMail(String url) throws IOException {
 
         String regEx = "([a-zA-Z0-9_\\-\\.]+)@([a-zA-Z0-9_\\-\\.]+)\\.([a-zA-Z]{2,5})";//mail
-        String test = "ssh s123456@oslomet.no.</p>";
-        ArrayList<String> mails = new ArrayList<String>();
+        String test = "<span lang='NO-BOK'>sgd.no@scandichotels.com</span>";
+        //ArrayList<String> mails = new ArrayList<String>();
         String outText = "";
 
         var webpageUrl = new URL(url);
@@ -110,11 +110,15 @@ public class EchoUcaseServerTCP
                 }
             }
 
+            Pattern pp = Pattern.compile(regEx);
+            Matcher mm = pp.matcher(test);
+            if(mm.find()) System.out.println(mm.group());
 
-            //System.out.println(sb);
+
             if (sb.toString().equals("")) outText = "No mails found";
             if (!sb.toString().isEmpty()) outText = sb.toString();
 
+            //System.out.println(sb);
 
         } catch (ProtocolException e) {
 
