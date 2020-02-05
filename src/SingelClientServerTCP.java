@@ -10,9 +10,9 @@ import java.util.Arrays;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class EchoUcaseServerTCP
+public class SingelClientServerTCP
 {
-    public static void main(String[] args) throws IOException /*{
+    public static void main(String[] args) throws IOException {
         int portNumber = 5555; // Default port to use
 
         if (args.length > 0) {
@@ -72,10 +72,10 @@ public class EchoUcaseServerTCP
                     + portNumber + " or listening for a connection");
             System.out.println(e.getMessage());
         }
-    }*/
-    {
-        System.out.println(findMail("https://www.scandichotels.no/kundeservice"));
     }
+    /*{
+        System.out.println(findMail("https://www.scandichotels.no/kundeservice"));
+    }*/
 
     public static boolean isWebsite(String url) throws IOException {
         try {
@@ -110,9 +110,9 @@ public class EchoUcaseServerTCP
                 }
             }
 
-            Pattern pp = Pattern.compile(regEx);
+            /*Pattern pp = Pattern.compile(regEx);
             Matcher mm = pp.matcher(test);
-            if(mm.find()) System.out.println(mm.group());
+            if(mm.find()) System.out.println(mm.group());*/
 
 
             if (sb.toString().equals("")) outText = "No mails found";

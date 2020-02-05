@@ -85,11 +85,22 @@ public class EchoUcaseServerTCPMultiClient
                 {
                     System.out.println("Client [" + clientAddr.getHostAddress() +  ":" + clientPort +"] > " + receivedText);
 
-                    // Write the converted uppercase string to the connection socket
-                    String outText = ProcessString(receivedText);
+                    String mail = "";
+                    //sjekker om url finnes
+                    if(SingelClientServerTCP.isWebsite(receivedText)){
+                        mail = SingelClientServerTCP.findMail(receivedText);
+                    }else {
+                        mail = "No such website";
+                    }
 
-                    out.println(outText);
-                    System.out.println("I (Server) [" + connectSocket.getLocalAddress().getHostAddress() + ":" + serverPort +"] > " + outText);
+                    if(mail.equals("No such website")) out.println("No such website");
+                    else {
+                        out.println("Found mail(s): " + mail);
+                        System.out.println("Found mail(s): " + mail);
+                    }
+
+                    out.println(mail);
+                    //System.out.println(mail);
                 }
 
                 // close the connection socket
