@@ -13,6 +13,7 @@ import java.util.regex.Pattern;
 public class SingleClientServerTCP
 {
     public static void main(String[] args) throws IOException {
+        History hist = new History();
         int portNumber = 5555; // Default port to use
 
         if (args.length > 0) {
@@ -55,14 +56,17 @@ public class SingleClientServerTCP
                 //sjekker om url finnes
                 if(isWebsite(receivedText)){
                     mail = findMail(receivedText);
+                }else if(receivedText.equals("last")){
+                    if(!hist.getLast().equals("False")) findMail(hist.getLast());
                 }else {
                     mail = "No such website";
                 }
 
                 if(mail.equals("No such website")) out.println("No such website");
                 else {
+                    hist.add(receivedText);
                     out.println("Found mail(s): " + mail);
-                    System.out.println("Found mail(s): " + mail);
+                    System.out.println("Found mail(s): " + mail + "This is history: " + hist.toString());
                 }
             }
 

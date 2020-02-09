@@ -5,11 +5,13 @@
  **/
 import java.net.*;
 import java.io.*;
+import java.util.Arrays;
 
 public class MultiClientServerTCP
 {
     public static void main(String[] args) throws IOException
     {
+
         int portNumber = 5555; // Default port to use
 
         if (args.length > 0)
@@ -55,6 +57,7 @@ public class MultiClientServerTCP
      */
     static class ClientService extends Thread
     {
+        History hist = new History();
         Socket connectSocket;
         InetAddress clientAddr;
         int serverPort, clientPort;
@@ -89,14 +92,16 @@ public class MultiClientServerTCP
                     //sjekker om url finnes
                     if(SingleClientServerTCP.isWebsite(receivedText)){
                         mail = SingleClientServerTCP.findMail(receivedText);
+                    }else if(receivedText.equals("last") && !hist.getLast().equals("False")){ //funker ikke
+                        SingleClientServerTCP.findMail(hist.getLast());
                     }else {
                         mail = "No such website";
                     }
 
-                    if(mail.equals("No such website")) out.println("No such website");
+                    if(mail.equals("No such website")) out.println(mail);
                     else {
                         out.println("Found mail(s): " + mail);
-                        System.out.println("Found mail(s): " + mail);
+                        System.out.println("Found mail(s): " + mail + "\tThis is history: " + hist.history);
                     }
 
                     out.println(mail);
