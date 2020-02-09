@@ -10,7 +10,7 @@ import java.util.Arrays;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class EchoUcaseServerTCP
+public class SingelClientServerTCP
 {
     public static void main(String[] args) throws IOException {
         int portNumber = 5555; // Default port to use
@@ -61,7 +61,7 @@ public class EchoUcaseServerTCP
 
                 if(mail.equals("No such website")) out.println("No such website");
                 else {
-                    out.println("Found mail(s): " + mail); //blir sendt til client
+                    out.println("Found mail(s): " + mail);
                     System.out.println("Found mail(s): " + mail);
                 }
             }
@@ -74,11 +74,11 @@ public class EchoUcaseServerTCP
         }
     }
     /*{
-        findMail("https://www.elkjop.no/om-oss/Kontakt-oss");
+        System.out.println(findMail("https://www.scandichotels.no/kundeservice"));
     }*/
 
     public static boolean isWebsite(String url) throws IOException {
-        try { //prøver å lage imputstream av url-en
+        try {
             InputStream eee = new URL(url).openStream();
             return true;
         }catch (IOException e){
@@ -88,8 +88,9 @@ public class EchoUcaseServerTCP
 
     public static String findMail(String url) throws IOException {
 
-        String regEx = "([a-zA-Z0-9_\\-\\.]+)@([a-zA-Z0-9_\\-\\.]+)\\.([a-zA-Z]{2,5})";//mail regex
-        //String test = "ssh s123456@oslomet.no.</p>";
+        String regEx = "([a-zA-Z0-9_\\-\\.]+)@([a-zA-Z0-9_\\-\\.]+)\\.([a-zA-Z]{2,5})";//mail
+        String test = "<span lang='NO-BOK'>sgd.no@scandichotels.com</span>";
+        //ArrayList<String> mails = new ArrayList<String>();
         String outText = "";
 
         var webpageUrl = new URL(url);
@@ -109,12 +110,19 @@ public class EchoUcaseServerTCP
                 }
             }
 
+            /*Pattern pp = Pattern.compile(regEx);
+            Matcher mm = pp.matcher(test);
+            if(mm.find()) System.out.println(mm.group());*/
+
+
             if (sb.toString().equals("")) outText = "No mails found";
             if (!sb.toString().isEmpty()) outText = sb.toString();
 
+            //System.out.println(sb);
 
         } catch (ProtocolException e) {
-            System.out.println(e.toString());
+
+            outText = e.toString();
         }
 
         return outText;
