@@ -6,7 +6,7 @@
 import java.net.*;
 import java.io.*;
 
-public class EchoUcaseServerTCPMultiClient
+public class MultiClientServerTCP
 {
     public static void main(String[] args) throws IOException
     {
@@ -87,8 +87,8 @@ public class EchoUcaseServerTCPMultiClient
 
                     String mail = "";
                     //sjekker om url finnes
-                    if(SingelClientServerTCP.isWebsite(receivedText)){
-                        mail = SingelClientServerTCP.findMail(receivedText);
+                    if(SingleClientServerTCP.isWebsite(receivedText)){
+                        mail = SingleClientServerTCP.findMail(receivedText);
                     }else {
                         mail = "No such website";
                     }

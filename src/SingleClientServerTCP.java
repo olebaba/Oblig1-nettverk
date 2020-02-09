@@ -10,7 +10,7 @@ import java.util.Arrays;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class SingelClientServerTCP
+public class SingleClientServerTCP
 {
     public static void main(String[] args) throws IOException {
         int portNumber = 5555; // Default port to use
