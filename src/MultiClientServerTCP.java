@@ -94,7 +94,8 @@ public class MultiClientServerTCP
                         outText += SingleClientServerTCP.findMail(receivedText);
                         hist.add(receivedText);
                     }else if(receivedText.equals("last")){ //gives last working website as recievedText
-                        outText += SingleClientServerTCP.findMail(hist.getLast());
+                        if(hist.getLast().equals("0")) outText = "No history";
+                        else outText += SingleClientServerTCP.findMail(hist.getLast());
                     }else if(receivedText.equals("hist")){
                         outText = "Your recent history: " + Arrays.toString(hist.history.toArray());
                     }else {
