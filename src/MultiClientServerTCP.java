@@ -88,21 +88,23 @@ public class MultiClientServerTCP
                 {
                     System.out.println("Client [" + clientAddr.getHostAddress() +  ":" + clientPort +"] > " + receivedText);
 
-                    String mail = "";
+                    String outText = "Mails found: ";
                     //sjekker om url finnes
                     if(SingleClientServerTCP.isWebsite(receivedText)){
-                        mail = SingleClientServerTCP.findMail(receivedText);
+                        outText += SingleClientServerTCP.findMail(receivedText);
                         hist.add(receivedText);
-                    }else if(receivedText.equals("last")){
-                        mail = SingleClientServerTCP.findMail(hist.getLast());
+                    }else if(receivedText.equals("last")){ //gives last working website as recievedText
+                        outText += SingleClientServerTCP.findMail(hist.getLast());
+                    }else if(receivedText.equals("hist")){
+                        outText = "Your recent history: " + Arrays.toString(hist.history.toArray());
                     }else {
-                        mail = "No such website";
+                        outText = "No such website";
                     }
 
-                    if(mail.equals("No such website")) out.println(mail);
+                    if(outText.equals("No such website")) out.println(outText);
                     else {
-                        out.println("Found mail(s): " + mail);
-                        System.out.println("Found mail(s): " + mail + "\tThis is history: " + hist.history);
+                        out.println(outText);
+                        System.out.println(outText + "\tThis is history: " + hist.history);
                     }
 
                     //out.println(mail);
