@@ -25,7 +25,7 @@ public class MultiClientServerTCP
             }
         }
 
-        System.out.println("Hi, I am the EchoUCase Multi-client TCP server.");
+        System.out.println("Hi, I am the Multi-client TCP server.");
 
          try (
                 // Create server socket with the given port number
@@ -92,8 +92,9 @@ public class MultiClientServerTCP
                     //sjekker om url finnes
                     if(SingleClientServerTCP.isWebsite(receivedText)){
                         mail = SingleClientServerTCP.findMail(receivedText);
-                    }else if(receivedText.equals("last") && !hist.getLast().equals("False")){ //funker ikke
-                        SingleClientServerTCP.findMail(hist.getLast());
+                        hist.add(receivedText);
+                    }else if(receivedText.equals("last")){ //funker ikke
+                        mail = SingleClientServerTCP.findMail(hist.getLast());
                     }else {
                         mail = "No such website";
                     }
@@ -104,7 +105,7 @@ public class MultiClientServerTCP
                         System.out.println("Found mail(s): " + mail + "\tThis is history: " + hist.history);
                     }
 
-                    out.println(mail);
+                    //out.println(mail);
                     //System.out.println(mail);
                 }
 
