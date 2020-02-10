@@ -90,12 +90,12 @@ public class MultiClientServerTCP
 
                     String outText = "Mails found: ";
                     //sjekker om url finnes
-                    if(SingleClientServerTCP.isWebsite(receivedText)){
-                        outText += SingleClientServerTCP.findMail(receivedText);
+                    if(aURL.isWebsite(receivedText)){
+                        outText += aURL.findMail(receivedText);
                         hist.add(receivedText);
                     }else if(receivedText.equals("last")){ //gives last working website as recievedText
                         if(hist.getLast().equals("0")) outText = "No history";
-                        else outText += SingleClientServerTCP.findMail(hist.getLast());
+                        else outText += aURL.findMail(hist.getLast());
                     }else if(receivedText.equals("hist")){
                         outText = "Your recent history: " + Arrays.toString(hist.history.toArray());
                     }else {
