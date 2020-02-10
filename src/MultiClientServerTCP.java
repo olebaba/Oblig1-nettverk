@@ -14,7 +14,7 @@ public class MultiClientServerTCP
 
         int portNumber = 5555; // Default port to use
 
-        if (args.length > 0)
+        if (args.length > 0) //
         {
             if (args.length == 1)
                 portNumber = Integer.parseInt(args[0]);
@@ -25,7 +25,7 @@ public class MultiClientServerTCP
             }
         }
 
-        System.out.println("Hi, I am the Multi-client TCP server.");
+        System.out.println("Hi, I am the Multi-client TCP server. port number " + portNumber);
 
          try (
                 // Create server socket with the given port number
@@ -93,7 +93,7 @@ public class MultiClientServerTCP
                     if(SingleClientServerTCP.isWebsite(receivedText)){
                         mail = SingleClientServerTCP.findMail(receivedText);
                         hist.add(receivedText);
-                    }else if(receivedText.equals("last")){ //funker ikke
+                    }else if(receivedText.equals("last")){
                         mail = SingleClientServerTCP.findMail(hist.getLast());
                     }else {
                         mail = "No such website";
@@ -117,19 +117,6 @@ public class MultiClientServerTCP
                 System.out.println("Exception occurred when trying to communicate with the client " + clientAddr.getHostAddress());
                 System.out.println(e.getMessage());
             }
-        }
-
-        /***
-         * Process the input string and returns.
-         * @param intext Input text
-         * @return processed text
-         */
-        private String ProcessString(String intext)
-        {
-            // Convert to upper case
-            String outtext = intext.toUpperCase();
-
-            return outtext;
         }
     }
 }
