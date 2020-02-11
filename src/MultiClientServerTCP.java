@@ -12,12 +12,12 @@ public class MultiClientServerTCP
     public static void main(String[] args) throws IOException
     {
 
-        int portNumber = 5555; // Default port to use
+        int portNumber = 5555; // Default
 
-        if (args.length > 0) //
+        if (args.length > 0) //checks for arguments
         {
             if (args.length == 1)
-                portNumber = Integer.parseInt(args[0]);
+                portNumber = Integer.parseInt(args[0]); //changes port number to argument
             else
             {
                 System.err.println("Usage: java EchoUcaseServerMutiClients [<port number>]");
@@ -25,7 +25,7 @@ public class MultiClientServerTCP
             }
         }
 
-        System.out.println("Hi, I am the Multi-client TCP server. port number " + portNumber);
+        System.out.println("Hi, I am the Multi-client TCP server. Port number " + portNumber);
 
          try (
                 // Create server socket with the given port number
@@ -50,7 +50,6 @@ public class MultiClientServerTCP
         }
 
     }
-
 
     /***
      * This class serves a client in a separate thread
@@ -86,17 +85,18 @@ public class MultiClientServerTCP
                 // read from the connection socket
                 while (((receivedText = in.readLine()) != null))
                 {
-                    System.out.println("Client [" + clientAddr.getHostAddress() +  ":" + clientPort +"] > " + receivedText);
+                    System.out.println("Client [" + clientAddr.getHostAddress() +  ":"
+                            + clientPort +"] > " + receivedText);
 
                     String outText = "Mails found: ";
-                    //sjekker om url finnes
-                    if(aURL.isWebsite(receivedText)){
+
+                    if(aURL.isWebsite(receivedText)){ //checks if url exists
                         outText += aURL.findMail(receivedText);
                         hist.add(receivedText);
                     }else if(receivedText.equals("last")){ //gives last working website as recievedText
                         if(hist.getLast().equals("0")) outText = "No history";
                         else outText += aURL.findMail(hist.getLast());
-                    }else if(receivedText.equals("hist")){
+                    }else if(receivedText.equals("hist")){ //gives recent history
                         outText = "Your recent history: " + Arrays.toString(hist.history.toArray());
                     }else {
                         outText = "No such website";
@@ -107,9 +107,6 @@ public class MultiClientServerTCP
                         out.println(outText);
                         System.out.println(outText + "\tThis is history: " + hist.history);
                     }
-
-                    //out.println(mail);
-                    //System.out.println(mail);
                 }
 
                 // close the connection socket
@@ -117,7 +114,8 @@ public class MultiClientServerTCP
 
             } catch (IOException e)
             {
-                System.out.println("Exception occurred when trying to communicate with the client " + clientAddr.getHostAddress());
+                System.out.println("Exception occurred when trying to communicate with the client "
+                        + clientAddr.getHostAddress());
                 System.out.println(e.getMessage());
             }
         }

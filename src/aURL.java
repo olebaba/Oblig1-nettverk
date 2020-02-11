@@ -11,7 +11,7 @@ public class aURL {
 
     public static boolean isWebsite(String url) throws IOException {
         try {
-            InputStream eee = new URL(url).openStream();
+            InputStream teststream = new URL(url).openStream();
             return true;
         }catch (IOException e){
             return false;
@@ -20,18 +20,14 @@ public class aURL {
 
     public static String findMail(String url) throws IOException {
 
-        String regEx = "([a-zA-Z0-9_\\-\\.]+)@([a-zA-Z0-9_\\-\\.]+)\\.([a-zA-Z]{2,5})";//mail
-        String test = "<span lang='NO-BOK'>sgd.no@scandichotels.com</span>";
-        //ArrayList<String> mails = new ArrayList<String>();
+        String regEx = "([a-zA-Z0-9_\\-\\.]+)@([a-zA-Z0-9_\\-\\.]+)\\.([a-zA-Z]{2,5})"; //mail
         String outText = "";
 
         var webpageUrl = new URL(url);
 
         try (var br = new BufferedReader(new InputStreamReader(webpageUrl.openStream()))) {
             String line;
-
             var sb = new StringBuilder();
-
 
             while ((line = br.readLine()) != null) {
                 String[] words = line.split(" ");
@@ -42,15 +38,8 @@ public class aURL {
                 }
             }
 
-            /*Pattern pp = Pattern.compile(regEx);
-            Matcher mm = pp.matcher(test);
-            if(mm.find()) System.out.println(mm.group());*/
-
-
             if (sb.toString().equals("")) outText = "No mails found";
             if (!sb.toString().isEmpty()) outText = sb.toString();
-
-            //System.out.println(sb);
 
         } catch (ProtocolException e) {
 
