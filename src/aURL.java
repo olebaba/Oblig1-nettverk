@@ -4,6 +4,8 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.ProtocolException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -29,6 +31,8 @@ public class aURL {
             String line;
             var sb = new StringBuilder();
 
+            List<String> emails = new ArrayList<>();
+
             while ((line = br.readLine()) != null) {
                 String[] words = line.split(" ");
                 for (String w : words) {
@@ -44,6 +48,7 @@ public class aURL {
         } catch (ProtocolException e) {
 
             outText = e.toString();
+
         }
 
         return outText;

@@ -1,5 +1,9 @@
 import java.io.*;
+import java.lang.reflect.Array;
 import java.net.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Scanner;
 import java.util.stream.Collectors;
 
@@ -53,7 +57,26 @@ public class EchoClientTCP
             {
                 // write keyboard input to the socket
                 out.println(userInput);
+
+
                 String outText = in.readLine();
+                String regex = "([,:])";
+                String[] arr = outText.split(regex);
+                List<String> outList;
+                outList = Arrays.asList(arr);
+
+                /*byte[] bt = new Byte[1000];
+
+                boolean end = false;
+                while(!end)
+                {
+                    int bytesRead = in.read(bt);
+                    dataString += new String(messageByte, 0, bytesRead);
+                    if (dataString.length == 100)
+                    {
+                        end = true;
+                    }
+                }*/
 
                 /*StringBuilder outText = new StringBuilder();
                 while (in.readLine() != null){
@@ -61,7 +84,10 @@ public class EchoClientTCP
                     outText.append(in.readLine());
                 }*/
 
-                System.out.println("Server [" + hostName +  ":" + portNumber + "] > " + outText);
+                System.out.println("Server [" + hostName +  ":" + portNumber + "] > ");
+                for (String s : outList) {
+                    System.out.println(s);
+                }
                 System.out.print("I (Client) [" + clientSocket.getLocalAddress().getHostAddress() + ":" 
 					+ clientSocket.getLocalPort() + "] > ");
             }
