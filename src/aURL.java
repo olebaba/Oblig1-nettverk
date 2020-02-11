@@ -38,8 +38,8 @@ public class aURL {
                 }
             }
 
-            if (sb.toString().equals("")) outText = "No mails found";
-            if (!sb.toString().isEmpty()) outText = sb.toString();
+            if (sb.toString().equals("")) outText = "!!!No email address found on the page!!!";
+            if (!sb.toString().isEmpty()) outText = "Mails found: " + sb.toString();
 
         } catch (ProtocolException e) {
 

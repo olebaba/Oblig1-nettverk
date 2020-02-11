@@ -88,7 +88,7 @@ public class MultiClientServerTCP
                     System.out.println("Client [" + clientAddr.getHostAddress() +  ":"
                             + clientPort +"] > " + receivedText);
 
-                    String outText = "Mails found: ";
+                    String outText = "";
 
                     if(aURL.isWebsite(receivedText)){ //checks if url exists
                         outText += aURL.findMail(receivedText);
@@ -99,14 +99,11 @@ public class MultiClientServerTCP
                     }else if(receivedText.equals("hist")){ //gives recent history
                         outText = "Your recent history: " + Arrays.toString(hist.history.toArray());
                     }else {
-                        outText = "No such website";
+                        outText = "!!!Server couldn’t find the web page!!!";
                     }
 
-                    if(outText.equals("No such website")) out.println(outText);
-                    else {
-                        out.println(outText);
-                        System.out.println(outText + "\tThis is history: " + hist.history);
-                    }
+                    out.println(outText);
+                    System.out.println(outText + "\tThis is history: " + hist.history);
                 }
 
                 // close the connection socket
